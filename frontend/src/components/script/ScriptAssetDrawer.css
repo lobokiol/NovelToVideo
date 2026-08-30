@@ -1,0 +1,640 @@
+/* —— 抽屉面板 —— */
+.script-asset-drawer.el-drawer {
+  background: linear-gradient(180deg, #12161b 0%, #0f141a 100%);
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  color: #e6edf3;
+  font-family: Inter, "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+.script-asset-drawer .el-drawer__header {
+  margin: 0;
+  padding: 20px 24px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.script-asset-drawer .el-drawer__close-btn,
+.script-asset-drawer .el-drawer__close-btn .el-icon {
+  color: #8b949e;
+}
+.script-asset-drawer .el-drawer__close-btn:hover,
+.script-asset-drawer .el-drawer__close-btn:hover .el-icon {
+  color: #ffffff;
+}
+.script-asset-drawer .el-drawer__body {
+  padding: 16px 24px;
+  background: transparent;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.14) transparent;
+}
+.script-asset-drawer .el-drawer__body::-webkit-scrollbar {
+  width: 6px;
+}
+.script-asset-drawer .el-drawer__body::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+}
+.script-asset-drawer .el-drawer__footer {
+  padding: 12px 24px 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.script-asset-drawer .asset-drawer-head {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.script-asset-drawer .asset-drawer-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #f2f4f8;
+}
+.script-asset-drawer .asset-drawer-sub {
+  font-size: 12px;
+  color: #7e8893;
+}
+
+/* —— 工具栏与筛选 —— */
+.script-asset-drawer .asset-manage-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.script-asset-drawer .asset-manage-search {
+  width: 100%;
+}
+.script-asset-drawer .asset-manage-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.script-asset-drawer .asset-manage-filter {
+  flex: 1 1 120px;
+  min-width: 0;
+}
+.script-asset-drawer .asset-manage-actions {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 8px;
+}
+
+/* 深色输入框与下拉触发器 */
+.script-asset-drawer .el-input__wrapper,
+.script-asset-drawer .el-select__wrapper {
+  padding: 0 12px;
+  border-radius: 6px;
+  color: #e6edf3;
+  background-color: #0c1015;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+  transition: background-color 0.18s ease, box-shadow 0.18s ease;
+}
+.script-asset-drawer .el-input__wrapper:hover,
+.script-asset-drawer .el-select__wrapper:hover {
+  background-color: #0e131a;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.22) inset;
+}
+.script-asset-drawer .el-input__wrapper.is-focus,
+.script-asset-drawer .el-select__wrapper.is-focused {
+  background-color: #0d1219;
+  box-shadow:
+    0 0 0 1px rgba(37, 99, 235, 0.55) inset,
+    0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+.script-asset-drawer .el-input__inner {
+  color: #e6edf3;
+}
+.script-asset-drawer .el-input__inner::placeholder,
+.script-asset-drawer .el-select__placeholder {
+  color: #7e8893;
+}
+.script-asset-drawer .el-input__prefix,
+.script-asset-drawer .el-select__caret {
+  color: #6e7681;
+}
+
+/* 默认按钮深色（主色/危险按钮保持 EP 主题语义色） */
+.script-asset-drawer .el-button {
+  border-radius: 6px;
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+/* 重置 EP 相邻按钮的 margin-left，统一改用容器 gap，避免竖排时第 2/3 个按钮被右移错位 */
+.script-asset-drawer .el-button + .el-button {
+  margin-left: 0;
+}
+.script-asset-drawer .el-button.is-link {
+  color: #93c5fd;
+}
+.script-asset-drawer .el-button.is-link.el-button--danger {
+  color: #fca5a5;
+}
+.script-asset-drawer .el-button:not(.is-link):not(.el-button--primary):not(.el-button--danger) {
+  background-color: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #c5cdd6;
+}
+.script-asset-drawer .el-button:not(.is-link):not(.el-button--primary):not(.el-button--danger):hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+.script-asset-drawer .el-button.is-disabled {
+  opacity: 0.45;
+}
+
+/* —— 批量栏 —— */
+.script-asset-drawer .asset-batch-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 12px;
+  transition: background-color 0.18s ease, border-color 0.18s ease;
+}
+.script-asset-drawer .asset-batch-bar.is-active {
+  background: rgba(37, 99, 235, 0.08);
+  border-color: rgba(37, 99, 235, 0.4);
+}
+.script-asset-drawer .asset-batch-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #c5cdd6;
+}
+.script-asset-drawer .asset-batch-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* —— 列表行 —— */
+.script-asset-drawer .asset-manage-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 160px;
+}
+.script-asset-drawer .asset-manage-row {
+  display: flex;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition: background-color 0.18s ease, border-color 0.18s ease;
+}
+.script-asset-drawer .asset-manage-row:hover {
+  background: rgba(255, 255, 255, 0.035);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+.script-asset-drawer .asset-manage-row.is-selected {
+  border-color: rgba(37, 99, 235, 0.55);
+  background: rgba(37, 99, 235, 0.1);
+}
+.script-asset-drawer .asset-manage-row.is-locked {
+  opacity: 0.82;
+}
+.script-asset-drawer .asset-row-checkbox {
+  margin-top: 2px;
+}
+/* —— 资产缩略图（有图显示封面，无图显示占位图标） —— */
+.script-asset-drawer .asset-row-thumb {
+  flex: 0 0 auto;
+  align-self: flex-start;
+  width: 52px;
+  height: 52px;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0c1015;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.script-asset-drawer .asset-row-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.script-asset-drawer .asset-row-thumb-icon {
+  font-size: 22px;
+  color: #4b5563;
+}
+.script-asset-drawer .asset-child-thumb {
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0c1015;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 15px;
+  color: #4b5563;
+}
+.script-asset-drawer .asset-child-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.script-asset-drawer .asset-row-main {
+  flex: 1;
+  min-width: 0;
+}
+.script-asset-drawer .asset-row-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.script-asset-drawer .asset-row-title strong {
+  font-size: 14px;
+  color: #f2f4f8;
+}
+.script-asset-drawer .asset-row-desc {
+  margin: 6px 0 0;
+  font-size: 12.5px;
+  color: #8b949e;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.script-asset-drawer .asset-row-meta {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #6e7681;
+}
+
+/* 类型药丸 */
+.script-asset-drawer .asset-type-pill {
+  font-size: 11px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  color: #fff;
+  background: #475569;
+  white-space: nowrap;
+}
+.script-asset-drawer .asset-type-pill--role { background: #2563eb; }
+.script-asset-drawer .asset-type-pill--faction { background: #7c3aed; }
+.script-asset-drawer .asset-type-pill--prop { background: #b45309; }
+.script-asset-drawer .asset-type-pill--scene { background: #059669; }
+
+.script-asset-drawer .asset-status-pill {
+  font-size: 11px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  color: #fcd34d;
+  background: rgba(252, 211, 77, 0.14);
+}
+.script-asset-drawer .asset-reference-pill {
+  font-size: 11px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  color: #6ee7b7;
+  background: rgba(110, 231, 183, 0.14);
+}
+
+/* 子资产行 */
+.script-asset-drawer .asset-child-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 7px 10px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background-color 0.18s ease;
+}
+.script-asset-drawer .asset-child-row:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+.script-asset-drawer .asset-child-row strong {
+  font-size: 13px;
+  color: #e6edf3;
+}
+.script-asset-drawer .asset-child-actions {
+  margin-left: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.script-asset-drawer .asset-row-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+  min-width: 78px;
+  white-space: nowrap;
+}
+.script-asset-drawer .asset-row-actions .el-button {
+  justify-content: flex-start;
+  margin: 0;
+  padding: 2px 6px;
+}
+.script-asset-drawer .asset-child-actions .el-button {
+  padding: 2px 4px;
+}
+
+/* 复选框深色描边 */
+.script-asset-drawer .el-checkbox__inner {
+  background-color: #0c1015;
+  border-color: rgba(255, 255, 255, 0.28);
+}
+.script-asset-drawer .el-checkbox__input.is-checked .el-checkbox__inner {
+  background-color: #2563eb;
+  border-color: #2563eb;
+}
+
+/* 空态与分页 */
+.script-asset-drawer .el-empty__description p {
+  color: #7e8893;
+}
+.script-asset-drawer .el-pagination {
+  --el-pagination-bg-color: transparent;
+  --el-pagination-text-color: #c5cdd6;
+  --el-pagination-button-color: #c5cdd6;
+  --el-pagination-button-bg-color: rgba(255, 255, 255, 0.05);
+  --el-pagination-button-disabled-color: #4b5563;
+  --el-pagination-button-disabled-bg-color: rgba(255, 255, 255, 0.02);
+  --el-pagination-hover-color: #93c5fd;
+  justify-content: flex-end;
+}
+.script-asset-drawer .el-pagination .el-pagination__total,
+.script-asset-drawer .el-pagination .el-pagination__jump {
+  color: #8b949e;
+}
+.script-asset-drawer .el-pagination.is-background .btn-prev,
+.script-asset-drawer .el-pagination.is-background .btn-next,
+.script-asset-drawer .el-pagination.is-background .el-pager li {
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #c5cdd6;
+}
+.script-asset-drawer .el-pagination.is-background .el-pager li:not(.is-active):hover {
+  color: #93c5fd;
+}
+.script-asset-drawer .el-pagination.is-background .el-pager li.is-active {
+  background-color: #2563eb;
+  color: #ffffff;
+}
+.script-asset-drawer .el-pagination.is-background .btn-prev:disabled,
+.script-asset-drawer .el-pagination.is-background .btn-next:disabled {
+  background-color: rgba(255, 255, 255, 0.02);
+  color: #4b5563;
+}
+
+/* —— 创建/编辑弹窗（自带深色样式，圆角更紧、输入内边距充足） —— */
+.script-asset-dialog.el-dialog {
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  color: #e6edf3;
+  background: linear-gradient(180deg, #12161b 0%, #0f141a 100%);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+  font-family: Inter, "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+.script-asset-dialog .el-dialog__header {
+  margin: 0;
+  padding: 18px 22px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.script-asset-dialog .el-dialog__title {
+  color: #f2f4f8;
+  font-size: 17px;
+  font-weight: 700;
+}
+.script-asset-dialog .el-dialog__headerbtn {
+  top: 14px;
+  right: 16px;
+}
+.script-asset-dialog .el-dialog__headerbtn .el-dialog__close {
+  color: #8b949e;
+}
+.script-asset-dialog .el-dialog__headerbtn:hover .el-dialog__close {
+  color: #ffffff;
+}
+.script-asset-dialog .el-dialog__body {
+  padding: 18px 22px 4px;
+  color: #b8c2cc;
+}
+.script-asset-dialog .el-dialog__footer {
+  padding: 12px 22px 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+.script-asset-dialog .el-form-item {
+  margin-bottom: 16px;
+}
+.script-asset-dialog .el-form-item__label {
+  color: #d5dce4;
+  font-weight: 600;
+  padding-right: 12px;
+}
+.script-asset-dialog .el-input__wrapper,
+.script-asset-dialog .el-select__wrapper {
+  min-height: 38px;
+  padding: 0 14px;
+  border-radius: 8px;
+  color: #e6edf3;
+  background-color: #0c1015;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+  transition: box-shadow 0.18s ease, background-color 0.18s ease;
+}
+.script-asset-dialog .el-input__wrapper:hover,
+.script-asset-dialog .el-select__wrapper:hover {
+  background-color: #0e131a;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.22) inset;
+}
+.script-asset-dialog .el-input__wrapper.is-focus,
+.script-asset-dialog .el-select__wrapper.is-focused {
+  box-shadow:
+    0 0 0 1px rgba(37, 99, 235, 0.55) inset,
+    0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+.script-asset-dialog .el-textarea__inner {
+  padding: 10px 14px;
+  border-radius: 8px;
+  color: #e6edf3;
+  background-color: #0c1015;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+  line-height: 1.6;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+.script-asset-dialog .el-textarea__inner::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.script-asset-dialog .el-textarea__inner::-webkit-scrollbar-track {
+  background: transparent;
+}
+.script-asset-dialog .el-textarea__inner::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+.script-asset-dialog .el-textarea__inner::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.32);
+}
+.script-asset-dialog .el-dialog__body {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+.script-asset-dialog .el-dialog__body::-webkit-scrollbar {
+  width: 8px;
+}
+.script-asset-dialog .el-dialog__body::-webkit-scrollbar-track {
+  background: transparent;
+}
+.script-asset-dialog .el-dialog__body::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+.script-asset-dialog .el-dialog__body::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.32);
+}
+.script-asset-dialog .el-textarea__inner:focus {
+  box-shadow:
+    0 0 0 1px rgba(37, 99, 235, 0.55) inset,
+    0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+.script-asset-dialog .el-input__inner {
+  color: #e6edf3;
+}
+.script-asset-dialog .el-input__inner::placeholder,
+.script-asset-dialog .el-textarea__inner::placeholder,
+.script-asset-dialog .el-select__placeholder {
+  color: #7e8893;
+}
+.script-asset-dialog .el-input__count {
+  color: #6e7681;
+  background: transparent;
+}
+.script-asset-dialog .asset-form-static {
+  color: #c5cdd6;
+}
+.script-asset-dialog .el-dialog__footer .el-button {
+  min-width: 84px;
+  border-radius: 7px;
+}
+.script-asset-dialog .el-dialog__footer .el-button:not(.el-button--primary) {
+  background-color: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #c5cdd6;
+}
+.script-asset-dialog .el-dialog__footer .el-button:not(.el-button--primary):hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+/* 父资产绑定弹窗 */
+.script-asset-parent-dialog .asset-parent-target {
+  margin-bottom: 14px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+}
+.script-asset-parent-dialog .asset-parent-label {
+  display: block;
+  margin-bottom: 8px;
+  color: #7e8893;
+  font-size: 12px;
+}
+.script-asset-parent-dialog .asset-parent-current,
+.asset-parent-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.script-asset-parent-dialog .asset-type-pill,
+.script-dark-select .asset-parent-option .asset-type-pill {
+  flex-shrink: 0;
+  font-size: 11px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  color: #fff;
+  background: #475569;
+  white-space: nowrap;
+}
+.script-asset-parent-dialog .asset-type-pill--role,
+.script-dark-select .asset-parent-option .asset-type-pill--role { background: #2563eb; }
+.script-asset-parent-dialog .asset-type-pill--faction,
+.script-dark-select .asset-parent-option .asset-type-pill--faction { background: #7c3aed; }
+.script-asset-parent-dialog .asset-type-pill--prop,
+.script-dark-select .asset-parent-option .asset-type-pill--prop { background: #b45309; }
+.script-asset-parent-dialog .asset-type-pill--scene,
+.script-dark-select .asset-parent-option .asset-type-pill--scene { background: #059669; }
+.script-asset-parent-dialog .asset-parent-current strong,
+.asset-parent-option-name {
+  min-width: 0;
+  overflow: hidden;
+  color: #e6edf3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.script-asset-parent-dialog .el-select {
+  width: 100%;
+}
+.asset-parent-option-meta {
+  min-width: 0;
+  overflow: hidden;
+  color: #7e8893;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.script-asset-parent-dialog .asset-parent-note {
+  margin: 0 0 8px 86px;
+  color: #7e8893;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* 删除确认框深色 */
+.script-asset-messagebox {
+  background: linear-gradient(180deg, #14181f 0%, #0d1117 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+  color: #e6edf3;
+  font-family: Inter, "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+.script-asset-messagebox .el-message-box__title {
+  color: #e6edf3;
+  font-weight: 700;
+}
+.script-asset-messagebox .el-message-box__content {
+  color: #b8c2cc;
+}
+.script-asset-messagebox .el-message-box__btns .el-button:not(.el-button--primary) {
+  background-color: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #c5cdd6;
+}
+
+@media (max-width: 640px) {
+  .script-asset-drawer .asset-manage-row {
+    flex-direction: column;
+  }
+  .script-asset-drawer .asset-row-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}

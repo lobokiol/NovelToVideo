@@ -1,0 +1,98 @@
+- generic [ref=e1]:
+  - main [ref=e192]:
+    - generic [ref=e193]:
+      - complementary [ref=e194]:
+        - generic [ref=e195]:
+          - generic [ref=e196] [cursor=pointer]: AF
+          - button "项目" [ref=e197] [cursor=pointer]:
+            - img [ref=e199]
+          - button "任务" [ref=e201] [cursor=pointer]:
+            - img [ref=e203]
+        - generic [ref=e205]:
+          - button "文档" [ref=e206] [cursor=pointer]:
+            - img [ref=e208]
+          - button "设置" [ref=e210] [cursor=pointer]:
+            - img [ref=e212]
+          - button "代码仓库" [ref=e214] [cursor=pointer]:
+            - img [ref=e216]
+      - generic [ref=e219]:
+        - generic [ref=e220]:
+          - generic [ref=e221]:
+            - heading "我的项目" [level=1] [ref=e222]
+            - paragraph [ref=e223]: 管理项目、生成模式、状态和协作成员
+          - button "新建项目" [ref=e224] [cursor=pointer]:
+            - generic [ref=e225]:
+              - img [ref=e227]
+              - text: 新建项目
+        - generic [ref=e229]:
+          - generic [ref=e231]:
+            - img [ref=e234]
+            - textbox "按项目名称搜索" [ref=e236]
+          - button "搜索" [ref=e237] [cursor=pointer]:
+            - generic [ref=e238]: 搜索
+          - button "刷新" [ref=e239] [cursor=pointer]:
+            - generic [ref=e240]: 刷新
+        - generic [ref=e242]:
+          - img [ref=e244]
+          - paragraph [ref=e261]: 暂无项目
+        - generic [ref=e263]:
+          - button "Go to previous page" [disabled] [ref=e264]:
+            - generic:
+              - img
+          - list [ref=e265]:
+            - listitem "page 1" [ref=e266]: "1"
+          - button "Go to next page" [disabled] [ref=e267]:
+            - generic:
+              - img
+          - generic [ref=e268]: Total 0
+    - dialog "设置" [ref=e270]:
+      - generic [active] [ref=e271]:
+        - generic [ref=e272]:
+          - heading "设置" [level=2] [ref=e273]
+          - button "Close this dialog" [ref=e274] [cursor=pointer]:
+            - img [ref=e276]
+        - generic [ref=e279]:
+          - complementary [ref=e280]:
+            - button "个人资料" [ref=e281] [cursor=pointer]:
+              - img [ref=e283]
+              - generic [ref=e285]: 个人资料
+            - button "修改密码" [ref=e286] [cursor=pointer]:
+              - img [ref=e288]
+              - generic [ref=e291]: 修改密码
+            - button "模型服务" [ref=e292] [cursor=pointer]:
+              - img [ref=e294]
+              - generic [ref=e297]: 模型服务
+            - button "注销登录" [ref=e298] [cursor=pointer]:
+              - img [ref=e300]
+              - generic [ref=e303]: 注销登录
+          - generic [ref=e305]:
+            - generic [ref=e306]:
+              - heading "个人资料" [level=2] [ref=e307]
+              - paragraph [ref=e308]: 修改账号显示名称、邮箱和昵称
+            - generic [ref=e309]:
+              - generic [ref=e310]:
+                - generic [ref=e311]:
+                  - generic [ref=e312]: A
+                  - button "更换头像" [ref=e313] [cursor=pointer]:
+                    - generic [ref=e314]: 更换头像
+                - generic [ref=e315]:
+                  - generic [ref=e316]:
+                    - generic [ref=e317]: "*账号"
+                    - textbox "*账号" [ref=e321]:
+                      - /placeholder: 登录账号
+                  - generic [ref=e322]:
+                    - generic [ref=e323]: 昵称
+                    - textbox "昵称" [ref=e327]:
+                      - /placeholder: 显示名称
+                  - generic [ref=e328]:
+                    - generic [ref=e329]: 邮箱
+                    - textbox "邮箱" [ref=e333]:
+                      - /placeholder: example@mail.com
+              - generic [ref=e334]:
+                - button "重置" [ref=e335] [cursor=pointer]:
+                  - generic [ref=e336]: 重置
+                - button "保存修改" [ref=e337] [cursor=pointer]:
+                  - generic [ref=e338]: 保存修改
+  - alert [ref=e339]:
+    - img [ref=e341]
+    - paragraph [ref=e343]: 请提供 access token

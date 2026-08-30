@@ -1,0 +1,189 @@
+from __future__ import annotations
+
+from typing import Any
+
+from app.core.base_provider import BaseProvider
+
+
+PROVIDER_CONFIG = {'key': 'mimo',
+ 'protocol': 'openai',
+ 'version': '1.0',
+ 'name': '小米MiMo',
+ 'description': '',
+ 'decs_url': 'https://token-plan-sgp.xiaomimimo.com/v1',
+ 'icon': '',
+ 'inputs': [{'key': 'API_KEY', 'label': 'API_KEY', 'type': 'password', 'required': True}],
+ 'input_values': {'API_KEY': 'enc:v1:YNCHf5zdSjoreeljzZ3eOtY2bkX8ALFiTrfzfimuw0WP3ut2Qq5sFkuOAQFbGszFLMnij0ziSehpxmeCcHjGkiMUmJzTX_z4MFMbs45A3YGVnJo='},
+ 'base_url': 'https://token-plan-cn.xiaomimimo.com/v1',
+ 'enabled': True,
+ 'sort_order': 0,
+ 'models': [{'name': 'mimo-v2-omni',
+             'model_id': 'mimo-v2-omni',
+             'model_type': 'text',
+             'description': 'xiaomi',
+             'modes': ['text'],
+             'think': False,
+             'voices': [],
+             'audio': None,
+             'duration_resolution_map': [],
+             'raw_config': {'id': 'mimo-v2-omni', 'object': 'model', 'owned_by': 'xiaomi'},
+             'aspect_ratios': [],
+             'sizes': [],
+             'fps': []},
+            {'name': 'mimo-v2-pro',
+             'model_id': 'mimo-v2-pro',
+             'model_type': 'text',
+             'description': 'xiaomi',
+             'modes': ['text'],
+             'think': False,
+             'voices': [],
+             'audio': None,
+             'duration_resolution_map': [],
+             'raw_config': {'id': 'mimo-v2-pro', 'object': 'model', 'owned_by': 'xiaomi'},
+             'aspect_ratios': [],
+             'sizes': [],
+             'fps': []},
+            {'name': 'mimo-v2-tts',
+             'model_id': 'mimo-v2-tts',
+             'model_type': 'tts',
+             'description': 'xiaomi',
+             'modes': ['text'],
+             'think': False,
+             'voices': [],
+             'audio': None,
+             'duration_resolution_map': [],
+             'raw_config': {'id': 'mimo-v2-tts', 'object': 'model', 'owned_by': 'xiaomi'},
+             'aspect_ratios': [],
+             'sizes': [],
+             'fps': []},
+            {'name': 'mimo-v2.5',
+             'model_id': 'mimo-v2.5',
+             'model_type': 'text',
+             'description': 'xiaomi',
+             'modes': ['text'],
+             'think': False,
+             'voices': [],
+             'audio': None,
+             'duration_resolution_map': [],
+             'raw_config': {'id': 'mimo-v2.5', 'object': 'model', 'owned_by': 'xiaomi'},
+             'aspect_ratios': [],
+             'sizes': [],
+             'fps': []},
+            {'name': 'mimo-v2.5-asr',
+             'model_id': 'mimo-v2.5-asr',
+             'model_type': 'text',
+             'description': 'xiaomi',
+             'modes': ['text'],
+             'think': False,
+             'voices': [],
+             'audio': None,
+             'duration_resolution_map': [],
+             'raw_config': {'id': 'mimo-v2.5-asr', 'object': 'model', 'owned_by': 'xiaomi'},
+             'aspect_ratios': [],
+             'sizes': [],
+             'fps': []},
+            {'name': 'mimo-v2.5-pro',
+             'model_id': 'mimo-v2.5-pro',
+             'model_type': 'text',
+             'description': 'xiaomi',
+             'modes': ['text'],
+             'think': False,
+             'voices': [],
+             'audio': None,
+             'duration_resolution_map': [],
+             'raw_config': {'id': 'mimo-v2.5-pro', 'object': 'model', 'owned_by': 'xiaomi'},
+             'aspect_ratios': [],
+             'sizes': [],
+             'fps': []},
+            {'name': 'mimo-v2.5-tts',
+             'model_id': 'mimo-v2.5-tts',
+             'model_type': 'tts',
+             'description': 'xiaomi',
+             'modes': ['text'],
+             'think': False,
+             'voices': [],
+             'audio': None,
+             'duration_resolution_map': [],
+             'raw_config': {'id': 'mimo-v2.5-tts', 'object': 'model', 'owned_by': 'xiaomi'},
+             'aspect_ratios': [],
+             'sizes': [],
+             'fps': []},
+            {'name': 'mimo-v2.5-tts-voiceclone',
+             'model_id': 'mimo-v2.5-tts-voiceclone',
+             'model_type': 'tts',
+             'description': 'xiaomi',
+             'modes': ['text'],
+             'think': False,
+             'voices': [],
+             'audio': None,
+             'duration_resolution_map': [],
+             'raw_config': {'id': 'mimo-v2.5-tts-voiceclone',
+                            'object': 'model',
+                            'owned_by': 'xiaomi'},
+             'aspect_ratios': [],
+             'sizes': [],
+             'fps': []},
+            {'name': 'mimo-v2.5-tts-voicedesign',
+             'model_id': 'mimo-v2.5-tts-voicedesign',
+             'model_type': 'tts',
+             'description': 'xiaomi',
+             'modes': ['text'],
+             'think': False,
+             'voices': [],
+             'audio': None,
+             'duration_resolution_map': [],
+             'raw_config': {'id': 'mimo-v2.5-tts-voicedesign',
+                            'object': 'model',
+                            'owned_by': 'xiaomi'},
+             'aspect_ratios': [],
+             'sizes': [],
+             'fps': []}],
+ 'url': 'https://token-plan-sgp.xiaomimimo.com/v1'}
+
+
+class Text(BaseProvider):
+    provider_key = PROVIDER_CONFIG["key"]
+    provider_config = PROVIDER_CONFIG
+    model_type = "text"
+
+    async def generate(self, *, model_id: str | None = None, **kwargs: Any) -> Any:
+        return await self.generate_text(model_id=model_id, **kwargs)
+
+    async def generate_text(self, *, model_id: str | None = None, **kwargs: Any) -> Any:
+        raise NotImplementedError("请实现当前服务的文本生成逻辑")
+
+
+class Image(BaseProvider):
+    provider_key = PROVIDER_CONFIG["key"]
+    provider_config = PROVIDER_CONFIG
+    model_type = "image"
+
+    async def generate(self, *, model_id: str | None = None, **kwargs: Any) -> Any:
+        return await self.generate_image(model_id=model_id, **kwargs)
+
+    async def generate_image(self, *, model_id: str | None = None, **kwargs: Any) -> Any:
+        raise NotImplementedError("请实现当前服务的图像生成逻辑")
+
+
+class Video(BaseProvider):
+    provider_key = PROVIDER_CONFIG["key"]
+    provider_config = PROVIDER_CONFIG
+    model_type = "video"
+
+    async def generate(self, *, model_id: str | None = None, **kwargs: Any) -> Any:
+        return await self.generate_video(model_id=model_id, **kwargs)
+
+    async def generate_video(self, *, model_id: str | None = None, **kwargs: Any) -> Any:
+        raise NotImplementedError("请实现当前服务的视频生成逻辑")
+
+
+class TTS(BaseProvider):
+    provider_key = PROVIDER_CONFIG["key"]
+    provider_config = PROVIDER_CONFIG
+    model_type = "tts"
+
+    async def generate(self, *, model_id: str | None = None, **kwargs: Any) -> Any:
+        return await self.generate_tts(model_id=model_id, **kwargs)
+
+    async def generate_tts(self, *, model_id: str | None = None, **kwargs: Any) -> Any:
+        raise NotImplementedError("请实现当前服务的语音生成逻辑")

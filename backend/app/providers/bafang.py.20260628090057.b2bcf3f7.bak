@@ -1,0 +1,85 @@
+from __future__ import annotations
+
+from typing import Any
+
+from app.core.base_provider import BaseProvider
+
+
+PROVIDER_CONFIG = {'key': 'bafang',
+ 'protocol': 'openai',
+ 'version': '1.0',
+ 'name': '八方中转站',
+ 'description': '',
+ 'decs_url': 'https://bafang.me/docs/#/',
+ 'icon': '',
+ 'inputs': [{'key': 'API_KEY', 'label': 'KEY', 'type': 'password', 'required': True}],
+ 'input_values': {'API_KEY': 'enc:v1:9_d-f7mEnHTrFXyipKg1TNajRLWWfO7qzvJQ-lVoUFo-EtuRtMvOl4sPaNCco8rqUc0gNZLlr81aKhfLYHxIO6DNkKsDcGnf_SCAxQVWOUb_OHM='},
+ 'base_url': 'https://bafang.me/v1',
+ 'enabled': False,
+ 'sort_order': 0,
+ 'models': [{'name': 'gpt-image-2',
+             'model_id': 'gpt-image-2',
+             'model_type': 'image',
+             'description': 'custom',
+             'modes': ['text'],
+             'think': False,
+             'voices': [],
+             'audio': None,
+             'duration_resolution_map': [],
+             'raw_config': {'id': 'gpt-image-2',
+                            'object': 'model',
+                            'created': 1626777600,
+                            'owned_by': 'custom',
+                            'supported_endpoint_types': ['openai']},
+             'aspect_ratios': ['16:9', '9:16', '1:1', '4:3', '3:4', '21:9', '3:2', '2:3'],
+             'sizes': ['1K', '2K', '4K'],
+             'fps': []}],
+ 'url': 'https://bafang.me/docs/#/'}
+
+
+class Text(BaseProvider):
+    provider_key = PROVIDER_CONFIG["key"]
+    provider_config = PROVIDER_CONFIG
+    model_type = "text"
+
+    async def generate(self, *, model_id: str | None = None, **kwargs: Any) -> Any:
+        return await self.generate_text(model_id=model_id, **kwargs)
+
+    async def generate_text(self, *, model_id: str | None = None, **kwargs: Any) -> Any:
+        raise NotImplementedError("请实现当前服务的文本生成逻辑")
+
+
+class Image(BaseProvider):
+    provider_key = PROVIDER_CONFIG["key"]
+    provider_config = PROVIDER_CONFIG
+    model_type = "image"
+
+    async def generate(self, *, model_id: str | None = None, **kwargs: Any) -> Any:
+        return await self.generate_image(model_id=model_id, **kwargs)
+
+    async def generate_image(self, *, model_id: str | None = None, **kwargs: Any) -> Any:
+        raise NotImplementedError("请实现当前服务的图像生成逻辑")
+
+
+class Video(BaseProvider):
+    provider_key = PROVIDER_CONFIG["key"]
+    provider_config = PROVIDER_CONFIG
+    model_type = "video"
+
+    async def generate(self, *, model_id: str | None = None, **kwargs: Any) -> Any:
+        return await self.generate_video(model_id=model_id, **kwargs)
+
+    async def generate_video(self, *, model_id: str | None = None, **kwargs: Any) -> Any:
+        raise NotImplementedError("请实现当前服务的视频生成逻辑")
+
+
+class TTS(BaseProvider):
+    provider_key = PROVIDER_CONFIG["key"]
+    provider_config = PROVIDER_CONFIG
+    model_type = "tts"
+
+    async def generate(self, *, model_id: str | None = None, **kwargs: Any) -> Any:
+        return await self.generate_tts(model_id=model_id, **kwargs)
+
+    async def generate_tts(self, *, model_id: str | None = None, **kwargs: Any) -> Any:
+        raise NotImplementedError("请实现当前服务的语音生成逻辑")

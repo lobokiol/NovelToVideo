@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Anon Forge — 高层运行时架构",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "viewBox": [1390, 680]
+  },
+  "components": [
+    {
+      "id": "operator",
+      "type": "external",
+      "label": "用户",
+      "sublabel": "浏览器操作台",
+      "pos": [40, 310],
+      "size": [120, 64]
+    },
+    {
+      "id": "webui",
+      "type": "frontend",
+      "label": "Vue 前端",
+      "sublabel": "Vite · 5173",
+      "pos": [220, 310],
+      "size": [150, 64]
+    },
+    {
+      "id": "api",
+      "type": "backend",
+      "label": "FastAPI API",
+      "sublabel": "Uvicorn · 8088",
+      "pos": [440, 310],
+      "size": [160, 64]
+    },
+    {
+      "id": "redis",
+      "type": "messagebus",
+      "label": "Redis / Memurai",
+      "sublabel": "令牌 · Task Stream",
+      "pos": [620, 150],
+      "size": [170, 64]
+    },
+    {
+      "id": "worker",
+      "type": "backend",
+      "label": "异步 Task Worker",
+      "sublabel": "消费任务 · 并发执行",
+      "pos": [760, 310],
+      "size": [180, 64]
+    },
+    {
+      "id": "database",
+      "type": "database",
+      "label": "业务数据库",
+      "sublabel": "PostgreSQL · SQLite 开发模式",
+      "pos": [560, 480],
+      "size": [210, 64]
+    },
+    {
+      "id": "media",
+      "type": "database",
+      "label": "媒体 / OSS 存储",
+      "sublabel": "data/oss · data/media",
+      "pos": [840, 480],
+      "size": [190, 64]
+    },
+    {
+      "id": "browserproxy",
+      "type": "backend",
+      "label": "小说浏览器代理",
+      "sublabel": "Camoufox · 8787",
+      "pos": [930, 150],
+      "size": [190, 64]
+    },
+    {
+      "id": "novelsources",
+      "type": "external",
+      "label": "小说来源站点",
+      "sublabel": "HTTP · 规则解析",
+      "pos": [1150, 150],
+      "size": [170, 64]
+    },
+    {
+      "id": "modelproviders",
+      "type": "cloud",
+      "label": "模型服务商",
+      "sublabel": "文本 · 图像 · 视频 · TTS",
+      "pos": [1150, 330],
+      "size": [190, 64]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Anon Forge 本地运行时",
+      "wraps": ["webui", "api", "redis", "worker", "database", "media", "browserproxy"]
+    },
+    {
+      "kind": "security-group",
+      "label": "本地数据与任务边界",
+      "wraps": ["redis", "database", "media"]
+    }
+  ],
+  "connections": [
+    { "from": "operator", "to": "webui", "label": "浏览器访问", "variant": "emphasis" },
+    { "from": "webui", "to": "api", "label": "HTTP /api", "variant": "emphasis" },
+    { "from": "api", "to": "database", "label": "业务读写", "variant": "emphasis", "fromSide": "bottom", "toSide": "top" },
+    { "from": "api", "to": "redis", "label": "令牌与任务入队", "variant": "emphasis", "fromSide": "top", "toSide": "bottom" },
+    { "from": "redis", "to": "worker", "label": "消费 Task Stream", "variant": "emphasis", "fromSide": "right", "toSide": "top" },
+    { "from": "worker", "to": "database", "label": "状态与结果", "variant": "emphasis", "fromSide": "bottom", "toSide": "top" },
+    { "from": "worker", "to": "media", "label": "媒体产物", "variant": "emphasis", "fromSide": "bottom", "toSide": "top" },
+    { "from": "worker", "to": "browserproxy", "label": "抓取请求", "variant": "dashed", "fromSide": "top", "toSide": "bottom" },
+    { "from": "browserproxy", "to": "novelsources", "label": "HTTP 访问", "variant": "dashed", "fromSide": "right", "toSide": "left", "labelDy": -26 },
+    { "from": "worker", "to": "modelproviders", "label": "生成 / 轮询", "variant": "dashed", "fromSide": "right", "toSide": "left" },
+    {
+      "from": "api",
+      "to": "media",
+      "label": "静态媒体访问",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "left",
+      "via": [[520, 600], [800, 600], [800, 512]]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "请求主路径",
+      "items": [
+        "用户通过 Vue/Vite 前端访问 FastAPI /api。",
+        "API 负责业务读写、认证令牌和异步任务入队。",
+        "前端 Vite 将 /api 与 /oss 代理到 8088。"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "异步执行",
+      "items": [
+        "Redis Stream 连接 API 与独立 Task Worker。",
+        "Worker 注册 demo、novel、asset、storyboard、media 任务模块。",
+        "任务状态和结果回写业务数据库，媒体写入本地 OSS/媒体目录。"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "外部边界",
+      "items": [
+        "小说抓取经 Camoufox 浏览器代理访问来源站点。",
+        "文本、图像、视频和 TTS 生成调用外部模型服务商。",
+        "生产配置目标为 PostgreSQL；当前本地开发运行使用 SQLite。"
+      ]
+    }
+  ]
+}
