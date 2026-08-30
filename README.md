@@ -6,7 +6,11 @@
 
 架构图基于本地项目源码生成，展示前端、后端 API、异步任务、缓存、媒体存储及外部服务之间的运行时关系：
 
-- [打开交互式架构图 HTML](docs/archify-runtime-architecture.html)
+![高层运行时架构图](docs/archify-runtime-architecture.visual-check.1440x900.light.png)
+
+GitHub 不会直接执行仓库中的 HTML 文件；如需交互式查看，请下载 HTML 后用浏览器打开：
+
+- [下载交互式架构图 HTML](docs/archify-runtime-architecture.html)
 - [查看 Archify 架构源文件](docs/archify-runtime-architecture.architecture.json)
 
 ## 项目结构
